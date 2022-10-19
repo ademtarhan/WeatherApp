@@ -5,42 +5,53 @@
 //  Created by Adem Tarhan on 13.10.2022.
 //
 
-import UIKit
 import FirebaseCore
+import Swinject
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var assembler: Assembler?
     var window: UIWindow?
-        var rootViewController: UIViewController? {
-            get { window?.rootViewController }
-            set {
-                window?.rootViewController = newValue
-                window?.makeKeyAndVisible()
-            }
-        }
-
-        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-            FirebaseApp.configure()
-            initWindow()
-            initRoot()
-
-            return true
-        }
-
-        /// - Initializing window
-        private func initWindow() {
-            window = UIWindow(frame: UIScreen.main.bounds)
+    var rootViewController: UIViewController? {
+        get { window?.rootViewController }
+        set {
+            window?.rootViewController = newValue
             window?.makeKeyAndVisible()
         }
+    }
 
-        /// - Initializing root
-        private func initRoot() {
-            /*let home = HomeRouter.shared.home
-            let login = LogInRouter.shared.logIn
-            let root = UINavigationController(rootViewController: login as! UIViewController)
-            rootViewController = root
-             */
-        }
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+        initWindow()
+        initDI()
+        initRoot()
+        
 
+        return true
+    }
+
+    /// - Initializing window
+    private func initWindow() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+    }
+
+    private func initDI() {
+        assembler = Assembler([
+
+            /// sceens
+            HomeAssembly(),
+        ])
+        assembler?.apply(assembly: ViewControllerFactoryAssembly(assembler: assembler!))
+        
+    }
+
+    /// - Initializing root
+    private func initRoot() {
+        let homeViewController = assembler?.resolver.resolve(HomeViewController.self)
+
+        // let root = UINavigationController(rootViewController: homeViewController as! UIViewController)
+        rootViewController = homeViewController as! HomeViewControllerImpl
+    }
 }
-
