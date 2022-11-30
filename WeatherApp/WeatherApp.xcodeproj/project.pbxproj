@@ -38,12 +38,9 @@
 		9A685FB52902C9CB00443B3B /* APICallable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A685FB42902C9CB00443B3B /* APICallable.swift */; };
 		9AC1A64729378FA20073C23E /* EventRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1A64629378FA20073C23E /* EventRouter.swift */; };
 		9AC1A6492937D40C0073C23E /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1A6482937D40C0073C23E /* AuthRouter.swift */; };
-		9AE4ED8A291294E100C467E0 /* GifLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4ED89291294E000C467E0 /* GifLoad.swift */; };
-		9AE4ED8C2912964800C467E0 /* weather3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4ED8B2912964800C467E0 /* weather3.gif */; };
 		9AE4ED922912E0DC00C467E0 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4ED902912E0DC00C467E0 /* AuthViewController.swift */; };
 		9AE4ED932912E0DC00C467E0 /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4ED912912E0DC00C467E0 /* AuthViewController.xib */; };
 		9AE4ED952912E4A900C467E0 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4ED942912E4A900C467E0 /* AuthAssembly.swift */; };
-		9AE4ED9729130BBC00C467E0 /* weather4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4ED9629130BBB00C467E0 /* weather4.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,12 +78,9 @@
 		9A685FB42902C9CB00443B3B /* APICallable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallable.swift; sourceTree = "<group>"; };
 		9AC1A64629378FA20073C23E /* EventRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRouter.swift; sourceTree = "<group>"; };
 		9AC1A6482937D40C0073C23E /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
-		9AE4ED89291294E000C467E0 /* GifLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifLoad.swift; sourceTree = "<group>"; };
-		9AE4ED8B2912964800C467E0 /* weather3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = weather3.gif; sourceTree = "<group>"; };
 		9AE4ED902912E0DC00C467E0 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		9AE4ED912912E0DC00C467E0 /* AuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
 		9AE4ED942912E4A900C467E0 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
-		9AE4ED9629130BBB00C467E0 /* weather4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = weather4.gif; sourceTree = "<group>"; };
 		B57479CE00F7E429562BC2FD /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,8 +173,6 @@
 				9A60350128F8239E00716F8D /* LaunchScreen.storyboard */,
 				9A60350428F8239E00716F8D /* Info.plist */,
 				9A60350D28F8259900716F8D /* GoogleService-Info.plist */,
-				9AE4ED8B2912964800C467E0 /* weather3.gif */,
-				9AE4ED9629130BBB00C467E0 /* weather4.gif */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -217,7 +209,6 @@
 				9A3D67DA28FFE3800088C1DA /* Scenes */,
 				9A60351E28F8270200716F8D /* ViewControllerFactory.swift */,
 				9A685FB42902C9CB00443B3B /* APICallable.swift */,
-				9AE4ED89291294E000C467E0 /* GifLoad.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -301,9 +292,7 @@
 			files = (
 				9AE4ED932912E0DC00C467E0 /* AuthViewController.xib in Resources */,
 				9A47E0212932B65700B7DDE1 /* EventViewController.xib in Resources */,
-				9AE4ED9729130BBC00C467E0 /* weather4.gif in Resources */,
 				9A60350328F8239E00716F8D /* LaunchScreen.storyboard in Resources */,
-				9AE4ED8C2912964800C467E0 /* weather3.gif in Resources */,
 				9A60350028F8239E00716F8D /* Assets.xcassets in Resources */,
 				9A445CDC2925812500A6C9DF /* TableViewCell.xib in Resources */,
 				9A60350E28F8259900716F8D /* GoogleService-Info.plist in Resources */,
@@ -373,7 +362,6 @@
 				9A47E0232932B6E700B7DDE1 /* EventPresenter.swift in Sources */,
 				9AC1A64729378FA20073C23E /* EventRouter.swift in Sources */,
 				9A60351328F8262A00716F8D /* HomeViewController.swift in Sources */,
-				9AE4ED8A291294E100C467E0 /* GifLoad.swift in Sources */,
 				9A60351A28F8264B00716F8D /* HomeEntity.swift in Sources */,
 				9AE4ED922912E0DC00C467E0 /* AuthViewController.swift in Sources */,
 				9AC1A6492937D40C0073C23E /* AuthRouter.swift in Sources */,
