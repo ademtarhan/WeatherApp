@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventViewControllerImpl" customModule="WeatherApp" customModuleProvider="target">
+            <connections>
+                <outlet property="datePicker" destination="ssc-X4-m4y" id="sn3-Sc-xbb"/>
+                <outlet property="descriptionLabel" destination="khc-Fc-YMv" id="3ph-Xn-jIX"/>
+                <outlet property="titleLabel" destination="cD9-F5-s6X" id="yWm-CV-7Od"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <datePicker clipsSubviews="YES" contentMode="scaleAspectFit" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="ssc-X4-m4y">
+                    <rect key="frame" x="35" y="47" width="320" height="300"/>
+                    <color key="tintColor" name="blueTone"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="6pp-nf-bec"/>
+                    </constraints>
+                </datePicker>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title for event" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cD9-F5-s6X">
+                    <rect key="frame" x="35" y="367" width="320" height="40"/>
+                    <color key="backgroundColor" name="blueTone"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="bH8-rs-sUP"/>
+                    </constraints>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="description for event" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="khc-Fc-YMv">
+                    <rect key="frame" x="35" y="417" width="320" height="100"/>
+                    <color key="backgroundColor" name="blueTone"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="DM9-eh-HuZ"/>
+                    </constraints>
+                    <color key="textColor" name="foreGround"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bm-y2-fC0">
+                    <rect key="frame" x="120" y="527" width="150" height="40"/>
+                    <color key="backgroundColor" name="blueTone"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="ANG-6A-u5I"/>
+                        <constraint firstAttribute="height" constant="40" id="zw4-sh-2AY"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <attributedString key="attributedTitle">
+                            <fragment content="Save">
+                                <attributes>
+                                    <font key="NSFont" size="20" name="Heebo-Regular"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <color key="baseForegroundColor" name="foreGround"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didTapSaveEventButton:" destination="-1" eventType="touchUpInside" id="wGs-Xz-UZ6"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="background"/>
+            <constraints>
+                <constraint firstItem="khc-Fc-YMv" firstAttribute="top" secondItem="cD9-F5-s6X" secondAttribute="bottom" constant="10" id="5dD-ZB-MnB"/>
+                <constraint firstItem="ssc-X4-m4y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="Afk-Sv-uXa"/>
+                <constraint firstItem="khc-Fc-YMv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="NLL-hh-thJ"/>
+                <constraint firstItem="ssc-X4-m4y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="OwR-h9-kht"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="khc-Fc-YMv" secondAttribute="trailing" constant="35" id="Qch-HW-Wx5"/>
+                <constraint firstItem="cD9-F5-s6X" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="TZt-cQ-EVH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cD9-F5-s6X" secondAttribute="trailing" constant="35" id="Wgj-Kx-Y2n"/>
+                <constraint firstItem="6bm-y2-fC0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="a7E-bw-XBx"/>
+                <constraint firstItem="6bm-y2-fC0" firstAttribute="top" secondItem="khc-Fc-YMv" secondAttribute="bottom" constant="10" id="n3d-ot-RAj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ssc-X4-m4y" secondAttribute="trailing" constant="35" id="oLh-Dv-6wN"/>
+                <constraint firstItem="cD9-F5-s6X" firstAttribute="top" secondItem="ssc-X4-m4y" secondAttribute="bottom" constant="20" id="xqN-zf-rrN"/>
+            </constraints>
+            <point key="canvasLocation" x="30.769230769230766" y="20.616113744075829"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="blueTone">
+            <color red="0.17647058823529413" green="0.60392156862745094" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="foreGround">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
