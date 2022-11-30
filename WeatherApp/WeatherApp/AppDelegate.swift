@@ -39,19 +39,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func initDI() {
         assembler = Assembler([
-
             /// sceens
             HomeAssembly(),
+            AuthAssembly(),
+            EventAssembly(),
         ])
         assembler?.apply(assembly: ViewControllerFactoryAssembly(assembler: assembler!))
-        
     }
 
     /// - Initializing root
     private func initRoot() {
         let homeViewController = assembler?.resolver.resolve(HomeViewController.self)
-
+        let authController = assembler?.resolver.resolve(AuthViewController.self)
+        let eventViewController = assembler?.resolver.resolve(EventViewController.self)
         // let root = UINavigationController(rootViewController: homeViewController as! UIViewController)
-        rootViewController = homeViewController as! HomeViewControllerImpl
+        rootViewController = UINavigationController(rootViewController: authController as! AuthViewControllerImpl)
     }
 }
