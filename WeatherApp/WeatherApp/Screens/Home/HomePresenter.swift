@@ -60,6 +60,8 @@ class HomePresenterImpl: HomePresenter {
                 icon = UIImage(systemName: "rain.fill")!
             } else if "\(desctiptionIcon)" == "fog" {
                 icon = UIImage(systemName: "cloud.fog.fill")!
+            }else if "\(desctiptionIcon)" == "lightning" {
+                icon = UIImage(systemName: "cloud.bolt.rain.fill")!
             }else {
                 icon = UIImage(systemName: "sun.min")!
             }
