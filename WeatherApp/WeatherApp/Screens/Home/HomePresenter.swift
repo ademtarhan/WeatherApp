@@ -6,3 +6,99 @@
 //
 
 import Foundation
+import UIKit
+
+protocol HomePresenter: AnyObject {
+    var interactor: HomeInteractor? { get set }
+    var view: HomeViewController? { get set }
+    func getCurrentWeather()
+    func getWeather()
+}
+
+class HomePresenterImpl: HomePresenter {
+    var interactor: HomeInteractor?
+    var view: HomeViewController?
+    var city = "Malatya"
+    func getCurrentWeather() {
+        // TODO:
+        interactor?.currentWeather(for: city, { result in
+            switch result {
+            case let .success(data):
+                print(data)
+
+                self.updateCurrent(data)
+            case .failure:
+                break
+            }
+        })
+    }
+
+    func getWeather() {
+        interactor?.getWeather({ result in
+            switch result {
+            case .failure:
+                // TODO: Error message
+                break
+            case let .success(data): break
+                // TODO: ..
+            }
+        })
+    }
+
+    private func updateCurrent(_ weather: WeatherResponse) {
+        
+        var icon: UIImage = UIImage(systemName: "sun.min.fill")!
+        if let desctiptionIcon = weather.weather?.first?.weatherDescription {
+            
+            if "\(desctiptionIcon)" == "overcast clouds" {
+                icon = UIImage(systemName: "cloud.fill")!
+            } else if "\(desctiptionIcon)" == "broken clouds" {
+                icon = UIImage(systemName: "cloud.sun.fill")!
+            } else if "\(desctiptionIcon)" == "scattered clouds" {
+                icon = UIImage(systemName: "cloud.fill")!
+            } else if "\(desctiptionIcon)" == "rain" {
+                icon = UIImage(systemName: "rain.fill")!
+            } else if "\(desctiptionIcon)" == "fog" {
+                icon = UIImage(systemName: "cloud.fog.fill")!
+            }else {
+                icon = UIImage(systemName: "sun.min")!
+            }
+        }
+
+        let location = weather.name ?? "Cannot find city"
+
+        var temperatureString = ""
+        if let temperature = weather.main?.temp {
+            temperatureString = "\(Int(temperature - 273))°"
+        }
+
+        var feelsLikeString = "No feels like"
+        if let feelsLike = weather.main?.feelsLike {
+            feelsLikeString = "\(Int(feelsLike - 273))°"
+        }
+
+        var highTempString = "No high temp"
+        if let high = weather.main?.tempMax {
+            highTempString = "\(Int(high - 273))°"
+        }
+
+        var lowTempString = "No high temp"
+        if let low = weather.main?.tempMin {
+            lowTempString = "\(Int(low - 273))°"
+        }
+
+        var windString = "No wind"
+        if let wind = weather.wind?.speed {
+            windString = "\(Int(wind))km/h"
+        }
+
+        var humidityString = "No humidity"
+        if let humidity = weather.main?.humidity {
+            humidityString = "%\(humidity)"
+        }
+
+        let weatherModel = WeatherEntity.Current.ViewModel(location: location, temperature: temperatureString, feelsLike: feelsLikeString, minTemperature: lowTempString, maxTemperature: highTempString, wind: windString, humidity: humidityString,icon: icon)
+
+        view?.display(weatherModel)
+    }
+}
