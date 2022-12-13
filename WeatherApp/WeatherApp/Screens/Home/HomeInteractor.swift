@@ -11,6 +11,8 @@ protocol HomeInteractor: AnyObject {
     var service: HomeService? { get set }
     func currentWeather(for city: String, _ completionHanlder: @escaping (Result<WeatherResponse, WeatherError>) -> Void)
     func getWeather(_ completionHandler: @escaping (Result<[String: AnyObject]?, WeatherError>) -> Void)
+    func deleteEvent(with event: EventModel,completionHandler: @escaping (Result<Any,FirebaseError>) -> Void)
+    func getData(completionHandler: @escaping (Result<Any,FirebaseError>) -> Void)
 }
 
 class HomeInteractorImpl: HomeInteractor {
@@ -36,6 +38,28 @@ class HomeInteractorImpl: HomeInteractor {
             case let .failure(error):
                 completionHandler(.failure(error))
             }
+        })
+    }
+    
+    func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
+        service?.deleteEvent(with: event, completionHandler: { result in
+            guard let _ = try? result.get() else {
+                dlog(self, "didNotSuccessDeleteProcess")
+                completionHandler(.failure(.deleteError))
+                return
+            }
+            dlog(self, "didSuccessDeleteProcess")
+            completionHandler(.success(true))
+        })
+    }
+    
+    func getData(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
+        service?.getData(completionHandler: { result in
+            guard let data = try? result.get() else {
+                completionHandler(.failure(.fetchBooksError))
+                return
+            }
+            completionHandler(.success(data))
         })
     }
 }

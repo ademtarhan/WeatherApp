@@ -5,20 +5,29 @@
 //  Created by Adem Tarhan on 21.10.2022.
 //
 
+import FirebaseAuth
+import FirebaseDatabase
 import Foundation
 
 protocol HomeService: AnyObject {
     func currentWeather(for city: String, _ completionHanlder: @escaping (Result<WeatherResponse, WeatherError>) -> Void)
     func getWeather(_ completionHandler: @escaping (Result<[String: AnyObject]?, WeatherError>) -> Void)
+    func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void)
+    func getData(completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void)
+    func fetchEventsFromUsers(completionHandler: @escaping (Result<[String], FirebaseError>) -> Void)
+    func fetchEventsFromEvents(with eventID: String, completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void)
 }
 
 // MARK: Calling Api
 
 class HomeServiceImpl: HomeService, APICallable {
+    var eventArray = [EventModel]()
+    let firebaseREF = Database.database().reference()
+
     typealias JSON = [String: AnyObject]
     func currentWeather(for city: String, _ completionHanlder: @escaping (Result<WeatherResponse, WeatherError>) -> Void) {
         // TODO: get current weather
-    
+
         let endpoint = "\(BaseURL)weather?q=\(city)&appid=\(APIKey)"
 
         print("--- \(endpoint)")
@@ -44,7 +53,6 @@ class HomeServiceImpl: HomeService, APICallable {
                 completionHanlder(.success(weatherResponse))
             } catch {
                 completionHanlder(.failure(.timeout))
-                
             }
         }
 
@@ -70,7 +78,6 @@ class HomeServiceImpl: HomeService, APICallable {
 
     func getWeather(_ completionHandler: @escaping (Result<JSON?, WeatherError>) -> Void) {
         let request = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Malatya&appid=a39be32a3b9802f13a79fcc3ea03e8f5")!
-        
 
         let url = URL(string: "https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=a39be32a3b9802f13a79fcc3ea03e8f5")
 
@@ -84,7 +91,6 @@ class HomeServiceImpl: HomeService, APICallable {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSON
 
-                        
                         completionHandler(.success(json))
                     } catch {
                         completionHandler(.failure(.JSONParsingError))
@@ -97,6 +103,100 @@ class HomeServiceImpl: HomeService, APICallable {
 
         task.resume()
     }
+
+    func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
+        let currenUserID = Auth.auth().currentUser?.uid
+        dlog(self, "\(currenUserID)")
+        dlog(self, "willDelete")
+        firebaseREF.child("events").child(event.eventID).removeValue { error, _ in
+            if error != nil {
+                dlog(self, "didNotDeleteError -> \(error)")
+                completionHandler(.failure(.deleteError))
+                return
+            } else {
+                dlog(self, "didDeletedEvent")
+                self.firebaseREF.child("users").child("\(currenUserID!)").child("events").child("\(event.eventID)").removeValue { error, _ in
+                    if error != nil {
+                        dlog(self, "didNotDeleteEventInUsers -> \(error)")
+                        completionHandler(.failure(.deleteError))
+                        return
+                    } else {
+                        dlog(self, "didDeletedEventInUsers")
+                        completionHandler(.success(true))
+                    }
+                }
+            }
+        }
+    }
+
+    func getData(completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void) {
+        dlog(self, "willGetData")
+        var eventS = [EventModel]()
+        fetchEventsFromUsers { result in
+            guard let events = try? result.get() else {
+                dlog(self, "didNotFetchEventFromUsers")
+                completionHandler(.failure(.fetchBooksError))
+                return
+            }
+            events.forEach { event in
+                self.fetchEventsFromEvents(with: event) { result in
+                    guard let eventData = try? result.get() else {
+                        completionHandler(.failure(.fetchBooksError))
+                        return
+                    }
+                    eventS = eventData
+                    completionHandler(.success(eventS))
+                }
+            }
+        }
+    }
+
+    func fetchEventsFromUsers(completionHandler: @escaping (Result<[String], FirebaseError>) -> Void) {
+        dlog(self, "willFetchEventsInUser")
+        let userID = Auth.auth().currentUser?.uid
+        firebaseREF.child("users").child("\(userID!)").child("events").getData { error, snapShot in
+            if let _ = error {
+                dlog(self, "didNotFetchEventFromUsers")
+                completionHandler(.failure(.fetchBooksError))
+            } else {
+                guard let value = snapShot?.value as? [String: Any] else { return }
+                // guard let events = value["events"] as? [String:Any] else {return}
+                let eventIDs = Array(value.keys)
+                dlog(self, "didFetchEventsInUsers")
+                completionHandler(.success(eventIDs))
+            }
+        }
+    }
+
+    func fetchEventsFromEvents(with eventID: String, completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void) {
+        dlog(self, "willFetchEventsInEvents")
+
+        firebaseREF.child("events").child("\(eventID)").ref.getData { error, snapShot in
+            if let _ = error {
+                dlog(self, "didNotFetchEvents -> \(error)")
+                completionHandler(.failure(.fetchBooksError))
+                return
+            } else {
+                if snapShot!.exists() {
+                    guard let event = snapShot?.value as? [String: Any] else { return }
+                    guard let title = event["title"] as? String,
+                          let description = event["description"] as? String,
+                          let date = event["date"] as? String,
+                          let eventID = event["eventID"] as? String
+                    else {
+                        dlog(self, "didNotConvertData")
+                        return
+                    }
+                    let eventItem = EventModel(date: date, title: title, description: description, eventID: eventID)
+                    self.eventArray.append(eventItem)
+                    completionHandler(.success(self.eventArray))
+                } else {
+                    dlog(self, "snapshotIsNull")
+                    completionHandler(.failure(.fetchBooksError))
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -104,19 +204,14 @@ class HomeServiceImpl: HomeService, APICallable {
 
   https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=a39be32a3b9802f13a79fcc3ea03e8f5 -> for week
 
- 
- 
- 
- 
  d00811ce34f2ce4e328d693369616d48
- 
+
  https://api.openweathermap.org/data/2.5/forecast/daily?q=London&units=metric&cnt=7&appid=d00811ce34f2ce4e328d693369616d48
- 
+
  https://api.openweathermap.org/data/2.5/forecast/daily?lat=44.34&lon=10.99&cnt=7&appid=a39be32a3b9802f13a79fcc3ea03e8f5
- 
+
  https://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=a39be32a3b9802f13a79fcc3ea03e8f5
- 
- 
+
  https://api.openweathermap.org/data/2.5/weather?q=Malatya&appid=a39be32a3b9802f13a79fcc3ea03e8f5
- 
+
  */

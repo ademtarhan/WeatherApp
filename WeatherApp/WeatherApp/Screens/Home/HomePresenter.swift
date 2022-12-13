@@ -13,6 +13,8 @@ protocol HomePresenter: AnyObject {
     var view: HomeViewController? { get set }
     func getCurrentWeather()
     func getWeather()
+    func deleteEvent(with event: EventModel)
+    func getData()
 }
 
 class HomePresenterImpl: HomePresenter {
@@ -101,4 +103,28 @@ class HomePresenterImpl: HomePresenter {
 
         view?.display(weatherModel)
     }
+    
+    
+    func deleteEvent(with event: EventModel) {
+        interactor?.deleteEvent(with: event, completionHandler: { result in
+            guard let _ = try? result.get() else{
+                dlog(self, "didNotSuccessDeleteProcess")
+                //TODO: show error message
+                return
+            }
+            dlog(self, "didSuccessDeleteProcess")
+        })
+    }
+    
+    
+    func getData() {
+        interactor?.getData(completionHandler: { result in
+            guard let eventsData = try? result.get() else{
+                //TODO: show fetch error
+                return
+            }
+            self.view?.setData(with: eventsData as! [EventModel])
+        })
+    }
+    
 }
