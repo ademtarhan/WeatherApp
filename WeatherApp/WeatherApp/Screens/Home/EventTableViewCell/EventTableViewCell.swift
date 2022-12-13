@@ -9,6 +9,11 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet  var dateLabel: UILabel!
+    @IBOutlet  var titleLabel: UILabel!
+    @IBOutlet  var decriptionLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,7 +22,12 @@ class EventTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+    }
+    
+    func setData(eventModel: EventModel){
+        dateLabel.text = eventModel.date
+        titleLabel.text = eventModel.title
+        decriptionLabel.text = eventModel.description
     }
     
 }
