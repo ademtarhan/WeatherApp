@@ -41,6 +41,8 @@
 		9AE4ED922912E0DC00C467E0 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4ED902912E0DC00C467E0 /* AuthViewController.swift */; };
 		9AE4ED932912E0DC00C467E0 /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4ED912912E0DC00C467E0 /* AuthViewController.xib */; };
 		9AE4ED952912E4A900C467E0 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE4ED942912E4A900C467E0 /* AuthAssembly.swift */; };
+		9AF23FE22938089E006F3798 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF23FE02938089E006F3798 /* EventTableViewCell.swift */; };
+		9AF23FE32938089E006F3798 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF23FE12938089E006F3798 /* EventTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		9AE4ED902912E0DC00C467E0 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		9AE4ED912912E0DC00C467E0 /* AuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
 		9AE4ED942912E4A900C467E0 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
+		9AF23FE02938089E006F3798 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		9AF23FE12938089E006F3798 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		B57479CE00F7E429562BC2FD /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +194,7 @@
 		9A60351028F8261C00716F8D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9AF23FDF2938088C006F3798 /* EventTableViewCell */,
 				9A445CD82925810D00A6C9DF /* TableViewCell */,
 				9A60351128F8262A00716F8D /* HomeViewController.swift */,
 				9A60351228F8262A00716F8D /* HomeViewController.xib */,
@@ -226,6 +231,15 @@
 				9AC1A6482937D40C0073C23E /* AuthRouter.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		9AF23FDF2938088C006F3798 /* EventTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				9AF23FE02938089E006F3798 /* EventTableViewCell.swift */,
+				9AF23FE12938089E006F3798 /* EventTableViewCell.xib */,
+			);
+			path = EventTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +308,7 @@
 				9A47E0212932B65700B7DDE1 /* EventViewController.xib in Resources */,
 				9A60350328F8239E00716F8D /* LaunchScreen.storyboard in Resources */,
 				9A60350028F8239E00716F8D /* Assets.xcassets in Resources */,
+				9AF23FE32938089E006F3798 /* EventTableViewCell.xib in Resources */,
 				9A445CDC2925812500A6C9DF /* TableViewCell.xib in Resources */,
 				9A60350E28F8259900716F8D /* GoogleService-Info.plist in Resources */,
 				9A60351428F8262A00716F8D /* HomeViewController.xib in Resources */,
@@ -367,6 +382,7 @@
 				9AC1A6492937D40C0073C23E /* AuthRouter.swift in Sources */,
 				9A4273E629139F6A00FC1B14 /* AuthPresenter.swift in Sources */,
 				9A3D67D928FFE1E00088C1DA /* HomeAssembly.swift in Sources */,
+				9AF23FE22938089E006F3798 /* EventTableViewCell.swift in Sources */,
 				9A4273E829139F7200FC1B14 /* AuthInteractor.swift in Sources */,
 				9A60351828F8264000716F8D /* HomeInteractor.swift in Sources */,
 				9A4273EA29139F8200FC1B14 /* AuthService.swift in Sources */,

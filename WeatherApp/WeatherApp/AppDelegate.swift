@@ -8,6 +8,8 @@
 import FirebaseCore
 import Swinject
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -53,6 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let authController = assembler?.resolver.resolve(AuthViewController.self)
         let eventViewController = assembler?.resolver.resolve(EventViewController.self)
         // let root = UINavigationController(rootViewController: homeViewController as! UIViewController)
-        rootViewController = UINavigationController(rootViewController: authController as! AuthViewControllerImpl)
+        if Auth.auth().currentUser != nil {
+            rootViewController = UINavigationController(rootViewController: homeViewController as! HomeViewControllerImpl)
+        }else{
+            rootViewController = UINavigationController(rootViewController: authController as! AuthViewControllerImpl)
+        }
+        
     }
 }
