@@ -14,6 +14,7 @@ protocol HomeViewController: AnyObject {
     var editView: EditViewController? {get set}
     func display(_ current: WeatherEntity.Current.ViewModel)
     func setData(with events: [EventModel])
+    func setLocalNotifactions(with event: EventModel)
 }
 
 class HomeViewControllerImpl: UIViewController, HomeViewController {
@@ -32,7 +33,9 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     var weatherWeekly = [DailyWeatherModel]()
     var eventData = [EventModel]()
     let center = UNUserNotificationCenter.current()
-    var notificationBody: String = ""
+    var notificationBody: String?
+    var currentDay: Date?
+    var nextDayEvent: EventModel?
     
     
     
@@ -41,7 +44,7 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currentDay = Date()
         blueView.layer.opacity = 0.8
 
         weatherWeekly.append(DailyWeatherModel(name: "Today", sunrise: "6º", sunset: 12, humidity: "13º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
@@ -70,14 +73,15 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         tableView.register(nibCell, forCellReuseIdentifier: "eventCell")
         // setUpView()
         // setupLayout()
-        // setLocalNotifactions()
+    
+
         // gifView.loadGif(name: "weather3")
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-       // presenter?.getData()
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,17 +89,16 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    private func setLocalNotifactions() {
+    func setLocalNotifactions(with event: EventModel) {
         center.requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
         }
 
         let content = UNMutableNotificationContent()
-        content.title = "Weather For Tomorrow"
-        content.body = notificationBody
-
+        content.title = "Event For Tomorrow"
+        content.body = "\(event.title )\n\(event.description)"
         var date = DateComponents()
-        date.hour = 29
-        date.minute = 58
+        date.hour = 21
+        date.minute = 26
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let uuid = UUID().uuidString
@@ -112,6 +115,15 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     
     func setData(with events: [EventModel]) {
         eventData = events
+        for event in events {
+            if self.currentDay?.nextDay.displayDate == event.date{
+                if self.currentDay?.nextDay.displayDate == event.date{
+                    dlog(self, "\(self.currentDay?.nextDay.displayDate) - \(event.date)")
+                    self.setLocalNotifactions(with: event)
+                    
+                }
+            }
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -150,9 +162,7 @@ extension HomeViewControllerImpl: UITableViewDelegate, UITableViewDataSource {
         deleteButton.backgroundColor = UIColor(named: "gradient")
         
         let editButton = UITableViewRowAction(style: .normal, title: "Edit") { rowAction, indexPath in
-            print("tap edit")
             let event = self.eventData[indexPath.row]
-            dlog(self, "select event id -> \(event.eventID)")
             self.router?.navigateToEdit(with: event)
         }
         editButton.backgroundColor = UIColor(named: "blueTone")
@@ -180,3 +190,23 @@ extension HomeViewControllerImpl {
 }
 
 
+
+extension Date {
+   var displayDate: String! {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MM yyyy"
+        return formatter.string(from: self)
+    }
+
+    var currentDate: Date {
+        return Date()
+    }
+
+    var previousDate: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: self)!
+    }
+
+    var nextDate: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: self)!
+    }
+}

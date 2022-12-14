@@ -22,6 +22,12 @@ class HomePresenterImpl: HomePresenter {
     var view: HomeViewController?
     var city = "Malatya"
     var eventArray = [EventModel]()
+    var currentDay: Date?
+    init(){
+        currentDay = Date()
+    }
+    
+    
     func getCurrentWeather() {
         // TODO:
         interactor?.currentWeather(for: city, { result in
@@ -121,6 +127,8 @@ class HomePresenterImpl: HomePresenter {
     
     
     func getData() {
+        var index = 0
+        dlog(self, "index = \(index+1)")
         interactor?.getData(completionHandler: { result in
             guard let eventsData = try? result.get() else{
                 //TODO: show fetch error
@@ -128,8 +136,13 @@ class HomePresenterImpl: HomePresenter {
             }
             self.eventArray = eventsData as! [EventModel]
             let sortedArray = self.eventArray.sorted { $0.date < $1.date }
-            self.view?.setData(with: sortedArray as! [EventModel])
+            self.view?.setData(with: sortedArray )
+            
+            
+            
         })
     }
     
 }
+
+
