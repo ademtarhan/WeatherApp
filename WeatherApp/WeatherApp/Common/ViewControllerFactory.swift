@@ -11,6 +11,7 @@ import Swinject
 protocol ViewControllerFactory: AnyObject {
     var homeViewController: HomeViewController { get }
     var eventViewController: EventViewController {get}
+    var editViewConroller: EditViewController {get}
 }
 
 class ViewControllerFactoryImpl: ViewControllerFactory {
@@ -25,5 +26,8 @@ class ViewControllerFactoryImpl: ViewControllerFactory {
     }
     var eventViewController: EventViewController{
         assembler.resolver.resolve(EventViewController.self)!
+    }
+    var editViewConroller: EditViewController{
+        assembler.resolver.resolve(EditViewController.self)!
     }
 }

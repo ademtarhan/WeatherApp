@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             HomeAssembly(),
             AuthAssembly(),
             EventAssembly(),
+            EditAssembly(),
         ])
         assembler?.apply(assembly: ViewControllerFactoryAssembly(assembler: assembler!))
     }
