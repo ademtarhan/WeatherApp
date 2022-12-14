@@ -135,13 +135,13 @@ class HomeServiceImpl: HomeService, APICallable {
         fetchEventsFromUsers { result in
             guard let events = try? result.get() else {
                 dlog(self, "didNotFetchEventFromUsers")
-                completionHandler(.failure(.fetchBooksError))
+                completionHandler(.failure(.fetchEventsError))
                 return
             }
             events.forEach { event in
                 self.fetchEventsFromEvents(with: event) { result in
                     guard let eventData = try? result.get() else {
-                        completionHandler(.failure(.fetchBooksError))
+                        completionHandler(.failure(.fetchEventsError))
                         return
                     }
                     eventS = eventData
@@ -157,7 +157,7 @@ class HomeServiceImpl: HomeService, APICallable {
         firebaseREF.child("users").child("\(userID!)").child("events").getData { error, snapShot in
             if let _ = error {
                 dlog(self, "didNotFetchEventFromUsers")
-                completionHandler(.failure(.fetchBooksError))
+                completionHandler(.failure(.fetchEventsError))
             } else {
                 guard let value = snapShot?.value as? [String: Any] else { return }
                 // guard let events = value["events"] as? [String:Any] else {return}
@@ -174,7 +174,7 @@ class HomeServiceImpl: HomeService, APICallable {
         firebaseREF.child("events").child("\(eventID)").ref.getData { error, snapShot in
             if let _ = error {
                 dlog(self, "didNotFetchEvents -> \(error)")
-                completionHandler(.failure(.fetchBooksError))
+                completionHandler(.failure(.fetchEventsError))
                 return
             } else {
                 if snapShot!.exists() {
@@ -192,7 +192,7 @@ class HomeServiceImpl: HomeService, APICallable {
                     completionHandler(.success(self.eventArray))
                 } else {
                     dlog(self, "snapshotIsNull")
-                    completionHandler(.failure(.fetchBooksError))
+                    completionHandler(.failure(.fetchEventsError))
                 }
             }
         }

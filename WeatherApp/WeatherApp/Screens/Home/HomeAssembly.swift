@@ -17,15 +17,21 @@ class HomeAssembly: Assembly {
             let interactor = r.resolve(HomeInteractor.self)!
             let service = r.resolve(HomeService.self)!
             let router = r.resolve(HomeRouter.self)!
+            let editView = r.resolve(EditViewController.self)!
 
             viewController.presenter = presenter
             viewController.router = router
+            viewController.editView = editView
             presenter.interactor = interactor
             interactor.service = service
             presenter.view = viewController
             router.view = viewController
 
             return viewController
+        }
+        
+        container.register(EditViewController.self) { _ in
+            EditViewControllerImpl()
         }
 
         container.register(HomePresenter.self) { _ in

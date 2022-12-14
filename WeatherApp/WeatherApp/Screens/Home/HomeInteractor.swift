@@ -56,7 +56,7 @@ class HomeInteractorImpl: HomeInteractor {
     func getData(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
         service?.getData(completionHandler: { result in
             guard let data = try? result.get() else {
-                completionHandler(.failure(.fetchBooksError))
+                completionHandler(.failure(.fetchEventsError))
                 return
             }
             completionHandler(.success(data))

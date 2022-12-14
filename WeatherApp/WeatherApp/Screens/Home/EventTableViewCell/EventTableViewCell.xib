@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,10 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvO-Y5-Azi">
-                        <rect key="frame" x="227" y="2" width="91" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="15" id="TPs-XJ-jOP"/>
-                        </constraints>
+                        <rect key="frame" x="293.66666666666669" y="2" width="24.333333333333314" height="15"/>
                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -42,26 +40,48 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcL-at-YzT">
+                        <rect key="frame" x="278.66666666666669" y="2" width="15" height="15"/>
+                        <color key="backgroundColor" name="gradient"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="nOY-FP-tmj"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="8TH-PQ-jgO" secondAttribute="trailing" constant="2" id="8Aj-Je-6VO"/>
                     <constraint firstItem="cN9-Oa-QwX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="AVR-jl-dOi"/>
+                    <constraint firstAttribute="trailing" secondItem="EvO-Y5-Azi" secondAttribute="trailing" constant="2" id="Bom-Db-YWo"/>
+                    <constraint firstItem="EvO-Y5-Azi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="IFP-p6-vpV"/>
                     <constraint firstItem="cN9-Oa-QwX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="J9o-cC-4Su"/>
                     <constraint firstItem="8TH-PQ-jgO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="KIo-c0-B6u"/>
-                    <constraint firstItem="EvO-Y5-Azi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="SuJ-gS-4fy"/>
-                    <constraint firstAttribute="trailing" secondItem="EvO-Y5-Azi" secondAttribute="trailing" constant="2" id="Sxb-hZ-tRi"/>
+                    <constraint firstItem="8TH-PQ-jgO" firstAttribute="top" secondItem="QcL-at-YzT" secondAttribute="bottom" constant="10" id="LaO-y1-YbS"/>
+                    <constraint firstItem="8TH-PQ-jgO" firstAttribute="top" secondItem="EvO-Y5-Azi" secondAttribute="bottom" constant="10" id="T8Y-LW-hCx"/>
                     <constraint firstAttribute="bottom" secondItem="8TH-PQ-jgO" secondAttribute="bottom" constant="5" id="emj-Ua-JgM"/>
-                    <constraint firstItem="EvO-Y5-Azi" firstAttribute="leading" secondItem="cN9-Oa-QwX" secondAttribute="trailing" constant="5" id="pNm-mB-WjX"/>
+                    <constraint firstItem="QcL-at-YzT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="prR-Pe-pf8"/>
                     <constraint firstItem="8TH-PQ-jgO" firstAttribute="top" secondItem="cN9-Oa-QwX" secondAttribute="bottom" constant="5" id="rDp-m1-bf5"/>
+                    <constraint firstItem="EvO-Y5-Azi" firstAttribute="leading" secondItem="QcL-at-YzT" secondAttribute="trailing" id="tC1-Tv-FCc"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dateLabel" destination="EvO-Y5-Azi" id="hez-Pw-Dw2"/>
+                <outlet property="dateView" destination="QcL-at-YzT" id="hlQ-1p-nco"/>
                 <outlet property="decriptionLabel" destination="8TH-PQ-jgO" id="V29-N8-xVd"/>
                 <outlet property="titleLabel" destination="cN9-Oa-QwX" id="JCd-E6-4tV"/>
             </connections>
             <point key="canvasLocation" x="6.1538461538461533" y="41.943127962085306"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="gradient">
+            <color red="0.72699999809265137" green="0.2070000022649765" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

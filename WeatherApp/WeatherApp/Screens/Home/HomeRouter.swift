@@ -10,6 +10,7 @@ import UIKit
 
 protocol HomeRouter: AnyObject {
     func navigateToEvent()
+    func navigateToEdit(with event: EventModel?)
     var view: HomeViewController! { get set }
 }
 
@@ -24,6 +25,11 @@ class HomeRouterImpl: HomeRouter {
 
     func navigateToEvent() {
         let next = viewControllerFactory.eventViewController
+        push(next, from: view)
+    }
+    func navigateToEdit(with event: EventModel?) {
+        let next = viewControllerFactory.editViewConroller
+        next.event = event
         push(next, from: view)
     }
 }

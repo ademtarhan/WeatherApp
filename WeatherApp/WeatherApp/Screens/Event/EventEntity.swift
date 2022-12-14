@@ -31,7 +31,8 @@ enum FirebaseError: Error {
     case invalidEmail
     case unKnownError
     case documentsError
-    case fetchBooksError
+    case fetchEventsError
     case saveDataError
     case deleteError
+    case setDataError
 }

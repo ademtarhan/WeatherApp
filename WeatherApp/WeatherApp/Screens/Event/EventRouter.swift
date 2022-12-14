@@ -23,6 +23,7 @@ class EventRouterImpl: EventRouter {
 
     func navigateToHome() {
         let next = viewControllerFactory.homeViewController
+        //pop(from: view)
         push(next, from: view)
     }
 }
@@ -35,4 +36,11 @@ extension EventRouterImpl {
             source.navigationController?.pushViewController(destination, animated: true)
         }
     }
+    func pop<E>(from source: E?) {
+        guard let source = source as? UIViewController else {return}
+        DispatchQueue.main.async {
+            source.navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }

@@ -11,6 +11,7 @@ import UserNotifications
 protocol HomeViewController: AnyObject {
     var presenter: HomePresenter? { get set }
     var router: HomeRouter? { get set }
+    var editView: EditViewController? {get set}
     func display(_ current: WeatherEntity.Current.ViewModel)
     func setData(with events: [EventModel])
 }
@@ -27,11 +28,14 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 
     var presenter: HomePresenter?
     var router: HomeRouter?
+    var editView: EditViewController?
     var weatherWeekly = [DailyWeatherModel]()
     var eventData = [EventModel]()
     let center = UNUserNotificationCenter.current()
     var notificationBody: String = ""
-
+    
+    
+    
     @IBOutlet var blueView: UIView!
     @IBOutlet var iconImage: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -73,6 +77,7 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+       // presenter?.getData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,10 +94,10 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         content.body = notificationBody
 
         var date = DateComponents()
-        date.hour = 22
-        date.minute = 01
+        date.hour = 29
+        date.minute = 58
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let uuid = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
         center.add(request) { _ in
@@ -146,7 +151,9 @@ extension HomeViewControllerImpl: UITableViewDelegate, UITableViewDataSource {
         
         let editButton = UITableViewRowAction(style: .normal, title: "Edit") { rowAction, indexPath in
             print("tap edit")
-            self.router?.navigateToEvent()
+            let event = self.eventData[indexPath.row]
+            dlog(self, "select event id -> \(event.eventID)")
+            self.router?.navigateToEdit(with: event)
         }
         editButton.backgroundColor = UIColor(named: "blueTone")
         
@@ -168,4 +175,8 @@ extension HomeViewControllerImpl {
             self.iconImage.image = current.icon
         }
     }
+    
+    
 }
+
+
