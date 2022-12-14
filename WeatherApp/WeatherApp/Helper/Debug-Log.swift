@@ -28,7 +28,7 @@ func dlog(
     _ items: Any...) {
     #if DEBUG
     var list : [Any] = []
-    let logInfo = "\(currentDateString())        \(getFixedLengthStringType(cls))🧿"
+    let logInfo = "\(currentDateString())        \(getFixedLengthStringType(cls))✅"
     list.append(logInfo)
     list.append(contentsOf: items)
     print(list, separator: " ", terminator: "\n")
@@ -41,7 +41,7 @@ func dlog(
     _ items: Any...) {
     #if DEBUG
     var list : [Any] = []
-    let logInfo = "\(currentDateString()) \(tag) \(getFixedLengthStringType(cls))🧿"
+    let logInfo = "\(currentDateString()) \(tag) \(getFixedLengthStringType(cls))✅"
     list.append(logInfo)
     list.append(contentsOf: items)
     print(list, separator: " ", terminator: "\n")
@@ -68,7 +68,7 @@ func dlog(
         icon = "📘"
     }
     
-    let logInfo = "\(currentDateString()) \(tag) \(icon) \(getFixedLengthStringType(cls))🧿"
+    let logInfo = "\(currentDateString()) \(tag) \(icon) \(getFixedLengthStringType(cls))✅"
     list.append(logInfo)
     list.append(contentsOf: items)
     print(list, separator: " ", terminator: "\n")
