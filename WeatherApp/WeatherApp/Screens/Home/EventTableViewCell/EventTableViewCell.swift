@@ -25,10 +25,7 @@ class EventTableViewCell: UITableViewCell {
     }
 
     func setData(eventModel: EventModel) {
-        dlog(self, "current date -> \(currentDate.nextDay.asDisplayDate)")
-        
         if currentDate.asDisplayDate < eventModel.date {
-            dlog(self, "\(currentDate.nextDay.asDisplayDate)-\(eventModel.date)")
             dateView.backgroundColor = UIColor(named: "purple")
         }else if currentDate.asDisplayDate == eventModel.date {
             dateView.backgroundColor = UIColor(named: "blueTone")

@@ -127,8 +127,6 @@ class HomePresenterImpl: HomePresenter {
     
     
     func getData() {
-        var index = 0
-        dlog(self, "index = \(index+1)")
         interactor?.getData(completionHandler: { result in
             guard let eventsData = try? result.get() else{
                 //TODO: show fetch error
