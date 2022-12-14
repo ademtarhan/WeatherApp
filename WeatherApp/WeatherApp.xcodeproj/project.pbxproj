@@ -23,6 +23,14 @@
 		9A47E0272932B70100B7DDE1 /* EventEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E0262932B70100B7DDE1 /* EventEntity.swift */; };
 		9A47E0292932B81800B7DDE1 /* EventAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E0282932B81800B7DDE1 /* EventAssembly.swift */; };
 		9A47E02B2932B84C00B7DDE1 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47E02A2932B84C00B7DDE1 /* EventService.swift */; };
+		9A5048FC294A3C4200F9AF59 /* EditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048F5294A3C4200F9AF59 /* EditPresenter.swift */; };
+		9A5048FD294A3C4200F9AF59 /* EditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048F6294A3C4200F9AF59 /* EditInteractor.swift */; };
+		9A5048FE294A3C4200F9AF59 /* EditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048F7294A3C4200F9AF59 /* EditRouter.swift */; };
+		9A5048FF294A3C4200F9AF59 /* EditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048F8294A3C4200F9AF59 /* EditAssembly.swift */; };
+		9A504900294A3C4200F9AF59 /* EditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5048F9294A3C4200F9AF59 /* EditViewController.xib */; };
+		9A504901294A3C4200F9AF59 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048FA294A3C4200F9AF59 /* EditViewController.swift */; };
+		9A504902294A3C4200F9AF59 /* EditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5048FB294A3C4200F9AF59 /* EditService.swift */; };
+		9A504904294A3C6900F9AF59 /* Debug-Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A504903294A3C6900F9AF59 /* Debug-Log.swift */; };
 		9A6034F728F8239C00716F8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6034F628F8239C00716F8D /* AppDelegate.swift */; };
 		9A60350028F8239E00716F8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A6034FF28F8239E00716F8D /* Assets.xcassets */; };
 		9A60350328F8239E00716F8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A60350128F8239E00716F8D /* LaunchScreen.storyboard */; };
@@ -63,6 +71,14 @@
 		9A47E0262932B70100B7DDE1 /* EventEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEntity.swift; sourceTree = "<group>"; };
 		9A47E0282932B81800B7DDE1 /* EventAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAssembly.swift; sourceTree = "<group>"; };
 		9A47E02A2932B84C00B7DDE1 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		9A5048F5294A3C4200F9AF59 /* EditPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPresenter.swift; sourceTree = "<group>"; };
+		9A5048F6294A3C4200F9AF59 /* EditInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditInteractor.swift; sourceTree = "<group>"; };
+		9A5048F7294A3C4200F9AF59 /* EditRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditRouter.swift; sourceTree = "<group>"; };
+		9A5048F8294A3C4200F9AF59 /* EditAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAssembly.swift; sourceTree = "<group>"; };
+		9A5048F9294A3C4200F9AF59 /* EditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditViewController.xib; sourceTree = "<group>"; };
+		9A5048FA294A3C4200F9AF59 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		9A5048FB294A3C4200F9AF59 /* EditService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditService.swift; sourceTree = "<group>"; };
+		9A504903294A3C6900F9AF59 /* Debug-Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Debug-Log.swift"; path = "ü/Debug-Log.swift"; sourceTree = "<group>"; };
 		9A6034F328F8239C00716F8D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6034F628F8239C00716F8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A6034FF28F8239E00716F8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +157,20 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
+		9A5048F4294A3C4200F9AF59 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				9A5048F5294A3C4200F9AF59 /* EditPresenter.swift */,
+				9A5048F6294A3C4200F9AF59 /* EditInteractor.swift */,
+				9A5048F7294A3C4200F9AF59 /* EditRouter.swift */,
+				9A5048F8294A3C4200F9AF59 /* EditAssembly.swift */,
+				9A5048F9294A3C4200F9AF59 /* EditViewController.xib */,
+				9A5048FA294A3C4200F9AF59 /* EditViewController.swift */,
+				9A5048FB294A3C4200F9AF59 /* EditService.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		9A51E8F228F842DB0048CC84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +200,7 @@
 		9A6034F528F8239C00716F8D /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				9A504903294A3C6900F9AF59 /* Debug-Log.swift */,
 				9A60351D28F826F200716F8D /* Common */,
 				9A60350F28F825FC00716F8D /* Screens */,
 				9A6034F628F8239C00716F8D /* AppDelegate.swift */,
@@ -194,6 +225,7 @@
 		9A60351028F8261C00716F8D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9A5048F4294A3C4200F9AF59 /* Edit */,
 				9AF23FDF2938088C006F3798 /* EventTableViewCell */,
 				9A445CD82925810D00A6C9DF /* TableViewCell */,
 				9A60351128F8262A00716F8D /* HomeViewController.swift */,
@@ -310,6 +342,7 @@
 				9A60350028F8239E00716F8D /* Assets.xcassets in Resources */,
 				9AF23FE32938089E006F3798 /* EventTableViewCell.xib in Resources */,
 				9A445CDC2925812500A6C9DF /* TableViewCell.xib in Resources */,
+				9A504900294A3C4200F9AF59 /* EditViewController.xib in Resources */,
 				9A60350E28F8259900716F8D /* GoogleService-Info.plist in Resources */,
 				9A60351428F8262A00716F8D /* HomeViewController.xib in Resources */,
 			);
@@ -367,6 +400,7 @@
 				9A60351628F8263700716F8D /* HomePresenter.swift in Sources */,
 				9A60351F28F8270300716F8D /* ViewControllerFactory.swift in Sources */,
 				9A60351C28F8265600716F8D /* HomeRouter.swift in Sources */,
+				9A5048FD294A3C4200F9AF59 /* EditInteractor.swift in Sources */,
 				9A6034F728F8239C00716F8D /* AppDelegate.swift in Sources */,
 				9A445CDB2925812500A6C9DF /* TableViewCell.swift in Sources */,
 				9A47E0202932B65700B7DDE1 /* EventViewController.swift in Sources */,
@@ -376,14 +410,20 @@
 				9AE4ED952912E4A900C467E0 /* AuthAssembly.swift in Sources */,
 				9A47E0232932B6E700B7DDE1 /* EventPresenter.swift in Sources */,
 				9AC1A64729378FA20073C23E /* EventRouter.swift in Sources */,
+				9A5048FC294A3C4200F9AF59 /* EditPresenter.swift in Sources */,
+				9A504902294A3C4200F9AF59 /* EditService.swift in Sources */,
 				9A60351328F8262A00716F8D /* HomeViewController.swift in Sources */,
 				9A60351A28F8264B00716F8D /* HomeEntity.swift in Sources */,
+				9A5048FE294A3C4200F9AF59 /* EditRouter.swift in Sources */,
 				9AE4ED922912E0DC00C467E0 /* AuthViewController.swift in Sources */,
+				9A5048FF294A3C4200F9AF59 /* EditAssembly.swift in Sources */,
+				9A504904294A3C6900F9AF59 /* Debug-Log.swift in Sources */,
 				9AC1A6492937D40C0073C23E /* AuthRouter.swift in Sources */,
 				9A4273E629139F6A00FC1B14 /* AuthPresenter.swift in Sources */,
 				9A3D67D928FFE1E00088C1DA /* HomeAssembly.swift in Sources */,
 				9AF23FE22938089E006F3798 /* EventTableViewCell.swift in Sources */,
 				9A4273E829139F7200FC1B14 /* AuthInteractor.swift in Sources */,
+				9A504901294A3C4200F9AF59 /* EditViewController.swift in Sources */,
 				9A60351828F8264000716F8D /* HomeInteractor.swift in Sources */,
 				9A4273EA29139F8200FC1B14 /* AuthService.swift in Sources */,
 				9A685FB52902C9CB00443B3B /* APICallable.swift in Sources */,
