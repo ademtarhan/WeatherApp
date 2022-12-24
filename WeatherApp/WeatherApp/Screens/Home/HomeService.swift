@@ -131,6 +131,7 @@ class HomeServiceImpl: HomeService, APICallable {
 
     func getData(completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void) {
         dlog(self, "willGetData")
+        var group = DispatchGroup()
         var eventS = [EventModel]()
         fetchEventsFromUsers { result in
             guard let events = try? result.get() else {
@@ -139,14 +140,19 @@ class HomeServiceImpl: HomeService, APICallable {
                 return
             }
             events.forEach { event in
+                group.enter()
                 self.fetchEventsFromEvents(with: event) { result in
                     guard let eventData = try? result.get() else {
                         completionHandler(.failure(.fetchEventsError))
                         return
-                    }
+ı                    }
                     eventS = eventData
-                    completionHandler(.success(eventS))
+                    group.leave()
                 }
+            }
+            group.notify(queue: .global(qos: .background)) {
+                dlog(self, "\(eventS.count)")
+                completionHandler(.success(eventS))
             }
         }
     }

@@ -97,14 +97,13 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         content.title = "Event For Tomorrow"
         content.body = "\(event.title )\n\(event.description)"
         var date = DateComponents()
-        date.hour = 21
-        date.minute = 45
+        date.hour = 15
+        date.minute = 25
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let uuid = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
         center.add(request) { _ in
-
             // MARK: error
         }
     }
@@ -116,9 +115,7 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     func setData(with events: [EventModel]) {
         eventData = events
         for event in events {
-            dlog(self, "----event date: \(event)")
-            if self.currentDay?.nextDay.displayDate == event.date{
-                dlog(self, "\(self.currentDay?.nextDay.displayDate) - \(event.date)")
+            if self.currentDay!.nextDay.displayDate == event.date{
                 self.setLocalNotifactions(with: event)
             }
         }
