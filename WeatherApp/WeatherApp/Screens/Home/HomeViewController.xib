@@ -438,12 +438,29 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bl5-MG-zWu">
+                            <rect key="frame" x="1" y="1" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="WdR-MZ-vFM"/>
+                                <constraint firstAttribute="height" constant="50" id="mp8-Ay-ahD"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <imageReference key="image" image="rectangle.portrait.and.arrow.forward" catalog="system" symbolScale="medium"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapLogOut:" destination="-1" eventType="touchUpInside" id="Egu-tX-xTL"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.62745098039215685" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Xvr-1Z-ASJ" secondAttribute="bottom" constant="17" id="6BK-fN-LmA"/>
                         <constraint firstItem="osJ-IH-Mcc" firstAttribute="bottom" secondItem="gdi-50-b1r" secondAttribute="bottom" id="Cle-tc-QEz"/>
                         <constraint firstItem="3Kb-W2-6jU" firstAttribute="top" secondItem="gaA-4R-Z5D" secondAttribute="top" constant="1" id="EPm-4S-iQW"/>
+                        <constraint firstItem="bl5-MG-zWu" firstAttribute="top" secondItem="gaA-4R-Z5D" secondAttribute="top" constant="1" id="Eic-P4-5Qq"/>
                         <constraint firstAttribute="trailing" secondItem="osJ-IH-Mcc" secondAttribute="trailing" constant="100" id="Ezh-HG-a5e"/>
                         <constraint firstItem="Xvr-1Z-ASJ" firstAttribute="trailing" secondItem="bFY-Qf-sjp" secondAttribute="trailing" id="Hmw-EY-bM5"/>
                         <constraint firstItem="osJ-IH-Mcc" firstAttribute="leading" secondItem="gdi-50-b1r" secondAttribute="trailing" id="NC7-ay-pLq"/>
@@ -452,6 +469,7 @@
                         <constraint firstItem="Xvr-1Z-ASJ" firstAttribute="leading" secondItem="bFY-Qf-sjp" secondAttribute="leading" id="SsC-WH-qzz"/>
                         <constraint firstAttribute="trailing" secondItem="Xvr-1Z-ASJ" secondAttribute="trailing" constant="20" id="TVP-C9-QmZ"/>
                         <constraint firstItem="xVs-Sa-OQA" firstAttribute="top" secondItem="gaA-4R-Z5D" secondAttribute="top" constant="25" id="TfF-x6-pLu"/>
+                        <constraint firstItem="bl5-MG-zWu" firstAttribute="leading" secondItem="gaA-4R-Z5D" secondAttribute="leading" constant="1" id="U1g-s7-Kyp"/>
                         <constraint firstItem="bFY-Qf-sjp" firstAttribute="top" secondItem="gQv-No-6fh" secondAttribute="bottom" constant="20" id="VlN-Uc-a67"/>
                         <constraint firstItem="gdi-50-b1r" firstAttribute="centerX" secondItem="gaA-4R-Z5D" secondAttribute="centerX" id="WvT-xg-0BL"/>
                         <constraint firstItem="gQv-No-6fh" firstAttribute="leading" secondItem="gaA-4R-Z5D" secondAttribute="leading" constant="87" id="Z9Z-3A-okF"/>
@@ -594,6 +612,7 @@
     <resources>
         <image name="calendar.badge.plus" catalog="system" width="128" height="108"/>
         <image name="humidity" catalog="system" width="128" height="96"/>
+        <image name="rectangle.portrait.and.arrow.forward" catalog="system" width="128" height="109"/>
         <image name="umbrella" catalog="system" width="124" height="128"/>
         <image name="wind" catalog="system" width="128" height="103"/>
         <namedColor name="AccentColor">

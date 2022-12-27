@@ -23,6 +23,7 @@ class HomeAssembly: Assembly {
             viewController.router = router
             viewController.editView = editView
             presenter.interactor = interactor
+            presenter.router = router
             interactor.service = service
             presenter.view = viewController
             router.view = viewController

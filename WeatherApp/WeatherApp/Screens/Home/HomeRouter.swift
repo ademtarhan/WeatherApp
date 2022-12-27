@@ -12,6 +12,7 @@ protocol HomeRouter: AnyObject {
     func navigateToEvent()
     func navigateToEdit(with event: EventModel?)
     var view: HomeViewController! { get set }
+    func navigateToAuth()
 }
 
 class HomeRouterImpl: HomeRouter {
@@ -32,6 +33,12 @@ class HomeRouterImpl: HomeRouter {
         next.event = event
         push(next, from: view)
     }
+    func navigateToAuth(){
+        let next = viewControllerFactory.authViewController
+        push(next, from: view)
+    }
+    
+    
 }
 
 extension HomeRouterImpl {

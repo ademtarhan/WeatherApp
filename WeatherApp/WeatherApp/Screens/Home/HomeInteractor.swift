@@ -13,6 +13,7 @@ protocol HomeInteractor: AnyObject {
     func getWeather(_ completionHandler: @escaping (Result<HourWeatherResponse, WeatherError>) -> Void)
     func deleteEvent(with event: EventModel,completionHandler: @escaping (Result<Any,FirebaseError>) -> Void)
     func getData(completionHandler: @escaping (Result<Any,FirebaseError>) -> Void)
+    func logOut(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void)
 }
 
 class HomeInteractorImpl: HomeInteractor {
@@ -60,6 +61,16 @@ class HomeInteractorImpl: HomeInteractor {
                 return
             }
             completionHandler(.success(data))
+        })
+    }
+    
+    func logOut(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
+        service?.logOut(completionHandler: { result in
+            guard let _ = try? result.get() else {
+                completionHandler(.failure(.logoutError))
+                return
+            }
+            completionHandler(.success(true))
         })
     }
 }

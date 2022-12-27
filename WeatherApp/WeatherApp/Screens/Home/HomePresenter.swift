@@ -11,10 +11,12 @@ import UIKit
 protocol HomePresenter: AnyObject {
     var interactor: HomeInteractor? { get set }
     var view: HomeViewController? { get set }
+    var router: HomeRouter? {get set}
     func getCurrentWeather()
     func getWeather()
     func deleteEvent(with event: EventModel)
     func getData()
+    func logOut()
 }
 
 class HomePresenterImpl: HomePresenter {
@@ -23,6 +25,7 @@ class HomePresenterImpl: HomePresenter {
     var city = "Malatya"
     var eventArray = [EventModel]()
     var currentDay: Date?
+    var router: HomeRouter?
 
     init() {
         currentDay = Date()
@@ -174,6 +177,16 @@ class HomePresenterImpl: HomePresenter {
             let sortedArray = self.eventArray.sorted { $0.date < $1.date }
             self.view?.setData(with: sortedArray)
 
+        })
+    }
+    
+    func logOut(){
+        interactor?.logOut(completionHandler: { result in
+            guard let _ = try? result.get() else {
+                dlog(self, "already logged out")
+                return
+            }
+            self.router?.navigateToAuth()
         })
     }
 }

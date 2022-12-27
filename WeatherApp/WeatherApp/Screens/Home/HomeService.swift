@@ -17,6 +17,7 @@ protocol HomeService: AnyObject {
     func fetchEventsFromUsers(completionHandler: @escaping (Result<[String], FirebaseError>) -> Void)
     func fetchEventsFromEvents(with eventID: String, completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void)
     func getHourWeather(_ completionHandler: @escaping (Result<HourWeatherResponse, WeatherError>) -> Void)
+    func logOut(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void)
 }
 
 // MARK: Calling Api
@@ -71,8 +72,6 @@ class HomeServiceImpl: HomeService, APICallable {
     }
 
     var city = "Malatya"
-
-    
 
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
@@ -163,7 +162,7 @@ class HomeServiceImpl: HomeService, APICallable {
                     group.leave()
                 }
             }
-            group.notify(queue: .global(qos: .background)) {                completionHandler(.success(eventS))
+            group.notify(queue: .global(qos: .background)) { completionHandler(.success(eventS))
             }
         }
     }
@@ -213,6 +212,18 @@ class HomeServiceImpl: HomeService, APICallable {
                 }
             }
         }
+    }
+
+    func logOut(completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completionHandler(.success(true))
+        }
+        catch {
+            dlog(self, "already logged out")
+            completionHandler(.failure(.logoutError))
+        }
+
     }
 }
 

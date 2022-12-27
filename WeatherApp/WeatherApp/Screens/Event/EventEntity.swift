@@ -35,4 +35,5 @@ enum FirebaseError: Error {
     case saveDataError
     case deleteError
     case setDataError
+    case logoutError
 }

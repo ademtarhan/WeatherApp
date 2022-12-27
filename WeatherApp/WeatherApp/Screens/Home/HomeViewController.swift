@@ -94,7 +94,13 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     @IBAction func didTapAddEvent(_ sender: Any) {
         router?.navigateToEvent()
     }
-
+    
+    
+    @IBAction func didTapLogOut(_ sender: Any) {
+        view.layer.opacity = 0.5
+        showInfoAlert(title: "Logout", message: "Are you sure for logout")
+    }
+    
     func setData(with events: [EventModel]) {
         eventData = events
         for event in events {
@@ -180,6 +186,26 @@ extension HomeViewControllerImpl {
                     label.text = model.hourText
                 }
             }
+        }
+    }
+    
+    func showInfoAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                self.view.viewWithTag(-11)?.removeFromSuperview()
+            }
+            let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default) { _ in
+                self.presenter?.logOut()
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .default) { _ in
+                self.view.layer.opacity = 1
+            }
+            alertViewController.addAction(ok)
+            alertViewController.addAction(cancel)
+            alertViewController.modalTransitionStyle = .crossDissolve
+            alertViewController.modalPresentationStyle = .overFullScreen
+            self.present(alertViewController, animated: true)
         }
     }
 }
