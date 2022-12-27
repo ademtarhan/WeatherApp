@@ -42,6 +42,7 @@
 		9A60351A28F8264B00716F8D /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A60351928F8264B00716F8D /* HomeEntity.swift */; };
 		9A60351C28F8265600716F8D /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A60351B28F8265600716F8D /* HomeRouter.swift */; };
 		9A60351F28F8270300716F8D /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A60351E28F8270200716F8D /* ViewControllerFactory.swift */; };
+		9A63F4BB295B06700029F8BC /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63F4BA295B06700029F8BC /* Date+.swift */; };
 		9A685FB32902C97100443B3B /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A685FB22902C97100443B3B /* HomeService.swift */; };
 		9A685FB52902C9CB00443B3B /* APICallable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A685FB42902C9CB00443B3B /* APICallable.swift */; };
 		9AC1A64729378FA20073C23E /* EventRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1A64629378FA20073C23E /* EventRouter.swift */; };
@@ -92,6 +93,7 @@
 		9A60351928F8264B00716F8D /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		9A60351B28F8265600716F8D /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		9A60351E28F8270200716F8D /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		9A63F4BA295B06700029F8BC /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		9A685FB22902C97100443B3B /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		9A685FB42902C9CB00443B3B /* APICallable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallable.swift; sourceTree = "<group>"; };
 		9AC1A64629378FA20073C23E /* EventRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRouter.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				9A504906294A3FD100F9AF59 /* Debug-Log.swift */,
+				9A63F4BA295B06700029F8BC /* Date+.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				9A6034F728F8239C00716F8D /* AppDelegate.swift in Sources */,
 				9A445CDB2925812500A6C9DF /* TableViewCell.swift in Sources */,
 				9A47E0202932B65700B7DDE1 /* EventViewController.swift in Sources */,
+				9A63F4BB295B06700029F8BC /* Date+.swift in Sources */,
 				9A685FB32902C97100443B3B /* HomeService.swift in Sources */,
 				9A504907294A3FD100F9AF59 /* Debug-Log.swift in Sources */,
 				9A47E0252932B6F600B7DDE1 /* EventInteractor.swift in Sources */,

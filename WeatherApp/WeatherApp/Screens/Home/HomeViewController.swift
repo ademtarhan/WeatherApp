@@ -11,10 +11,11 @@ import UserNotifications
 protocol HomeViewController: AnyObject {
     var presenter: HomePresenter? { get set }
     var router: HomeRouter? { get set }
-    var editView: EditViewController? {get set}
+    var editView: EditViewController? { get set }
     func display(_ current: WeatherEntity.Current.ViewModel)
     func setData(with events: [EventModel])
     func setLocalNotifactions(with event: EventModel)
+    func hourlyWeatherDisplay(_ hourly: [HourlyWeatherModel])
 }
 
 class HomeViewControllerImpl: UIViewController, HomeViewController {
@@ -27,6 +28,10 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     @IBOutlet var maxTemperatureLabel: UILabel!
     @IBOutlet var minTemperatureLabel: UILabel!
 
+    @IBOutlet var hourLabels: [UILabel]! // hourLabels
+    @IBOutlet var iconImages: [UIImageView]!
+    @IBOutlet var tempLabels: [UILabel]!
+
     var presenter: HomePresenter?
     var router: HomeRouter?
     var editView: EditViewController?
@@ -36,9 +41,7 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     var notificationBody: String?
     var currentDay: Date?
     var nextDayEvent: EventModel?
-    
-    
-    
+
     @IBOutlet var blueView: UIView!
     @IBOutlet var iconImage: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -47,6 +50,8 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         currentDay = Date()
         blueView.layer.opacity = 0.8
 
+        presenter?.getWeather()
+
         weatherWeekly.append(DailyWeatherModel(name: "Today", sunrise: "6º", sunset: 12, humidity: "13º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
         weatherWeekly.append(DailyWeatherModel(name: "Friday", sunrise: "5º", sunset: 12, humidity: "13º", temp: 12, wind: 12, iconName: "cloud.fill"))
         weatherWeekly.append(DailyWeatherModel(name: "Saturday", sunrise: "7º", sunset: 12, humidity: "15º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
@@ -54,15 +59,15 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         weatherWeekly.append(DailyWeatherModel(name: "Monday", sunrise: "7º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.fill"))
         weatherWeekly.append(DailyWeatherModel(name: "Tuesday", sunrise: "6º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.fill"))
         weatherWeekly.append(DailyWeatherModel(name: "Wednesday", sunrise: "6º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
-/*
-        eventData.append(EventModel(date: "01.12.2022", title: "event1", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event2", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event3", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event4", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event5", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event6", description: "description1", eventID: "1"))
-        eventData.append(EventModel(date: "01.12.2022", title: "event7r", description: "description1", eventID: "1"))
-*/
+        /*
+         eventData.append(EventModel(date: "01.12.2022", title: "event1", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event2", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event3", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event4", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event5", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event6", description: "description1", eventID: "1"))
+         eventData.append(EventModel(date: "01.12.2022", title: "event7r", description: "description1", eventID: "1"))
+         */
         presenter?.getData()
         view.backgroundColor = UIColor(named: "background")
         presenter?.getWeather()
@@ -73,7 +78,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         tableView.register(nibCell, forCellReuseIdentifier: "eventCell")
         // setUpView()
         // setupLayout()
-    
 
         // gifView.loadGif(name: "weather3")
     }
@@ -81,7 +85,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,15 +98,16 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 
         let content = UNMutableNotificationContent()
         content.title = "Event For Tomorrow"
-        content.body = "\(event.title )\n\(event.description)"
+        content.body = "\(event.title)\n\(event.description)"
         var date = DateComponents()
-        date.hour = 15
-        date.minute = 25
+        date.hour = 14
+        date.minute = 50
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let uuid = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuid, content: content, trigger: trigger)
         center.add(request) { _ in
+
             // MARK: error
         }
     }
@@ -111,12 +115,12 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     @IBAction func didTapAddEvent(_ sender: Any) {
         router?.navigateToEvent()
     }
-    
+
     func setData(with events: [EventModel]) {
         eventData = events
         for event in events {
-            if self.currentDay!.nextDay.displayDate == event.date{
-                self.setLocalNotifactions(with: event)
+            if currentDay!.nextDay.displayDate == event.date {
+                setLocalNotifactions(with: event)
             }
         }
         DispatchQueue.main.async {
@@ -142,27 +146,26 @@ extension HomeViewControllerImpl: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let deleteButton = UITableViewRowAction(style: .normal, title: "Delete") { rowAction, indexPath in
+        let deleteButton = UITableViewRowAction(style: .normal, title: "Delete") { _, indexPath in
             dlog(self, "did tap delete")
             let event = self.eventData.remove(at: indexPath.row)
             self.presenter?.deleteEvent(with: event)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
         deleteButton.backgroundColor = UIColor(named: "gradient")
-        
-        let editButton = UITableViewRowAction(style: .normal, title: "Edit") { rowAction, indexPath in
+
+        let editButton = UITableViewRowAction(style: .normal, title: "Edit") { _, indexPath in
             let event = self.eventData[indexPath.row]
             self.router?.navigateToEdit(with: event)
         }
         editButton.backgroundColor = UIColor(named: "blueTone")
-        
-        return [deleteButton,editButton]
+
+        return [deleteButton, editButton]
     }
 }
 
@@ -180,14 +183,30 @@ extension HomeViewControllerImpl {
             self.iconImage.image = current.icon
         }
     }
-    
-    
+
+    func hourlyWeatherDisplay(_ hourly: [HourlyWeatherModel]) {
+        // TODO:
+
+        DispatchQueue.main.async {
+            for i in 0 ... 4 {
+                zip(self.iconImages, hourly).forEach { image, model in
+                    image.image = model.iconDescription
+                }
+
+                zip(self.tempLabels, hourly).forEach { label, model in
+                    label.text = model.lowTempature
+                }
+
+                zip(self.hourLabels, hourly).forEach { label, model in
+                    label.text = model.hourText
+                }
+            }
+        }
+    }
 }
 
-
-
 extension Date {
-   var displayDate: String! {
+    var displayDate: String! {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MM yyyy"
         return formatter.string(from: self)

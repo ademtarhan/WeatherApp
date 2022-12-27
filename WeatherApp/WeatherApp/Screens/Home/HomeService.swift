@@ -11,11 +11,12 @@ import Foundation
 
 protocol HomeService: AnyObject {
     func currentWeather(for city: String, _ completionHanlder: @escaping (Result<WeatherResponse, WeatherError>) -> Void)
-    func getWeather(_ completionHandler: @escaping (Result<[String: AnyObject]?, WeatherError>) -> Void)
+    // func getWeather(_ completionHandler: @escaping (Result<[String: AnyObject]?, WeatherError>) -> Void)
     func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void)
     func getData(completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void)
     func fetchEventsFromUsers(completionHandler: @escaping (Result<[String], FirebaseError>) -> Void)
     func fetchEventsFromEvents(with eventID: String, completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void)
+    func getHourWeather(_ completionHandler: @escaping (Result<HourWeatherResponse, WeatherError>) -> Void)
 }
 
 // MARK: Calling Api
@@ -71,37 +72,51 @@ class HomeServiceImpl: HomeService, APICallable {
 
     var city = "Malatya"
 
+    
+
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }
 
-    func getWeather(_ completionHandler: @escaping (Result<JSON?, WeatherError>) -> Void) {
-        let request = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Malatya&appid=a39be32a3b9802f13a79fcc3ea03e8f5")!
+    func getHourWeather(_ completionHanlder: @escaping (Result<HourWeatherResponse, WeatherError>) -> Void) {
+        let lat = 38.356869
+        let lon = 38.309669
 
-        let url = URL(string: "https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=a39be32a3b9802f13a79fcc3ea03e8f5")
+        let endpoint = "\(BaseURL)forecast?lat=\(lat)&lon=\(lon)&appid=\(APIKey)"
 
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, _ in
-            guard let httpResponse = response as? HTTPURLResponse else {
-                completionHandler(.failure(.requestError))
+        print("--- \(endpoint)")
+        guard let safeURLString = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let endpointURL = URL(string: safeURLString) else {
+            completionHanlder(.failure(.invalidURL))
+            return
+        }
+
+        let dataTask = URLSession.shared.dataTask(with: endpointURL) { data, _, error in
+            guard error == nil else {
+                completionHanlder(.failure(.requestError))
                 return
             }
-            if httpResponse.statusCode == 200 {
-                if let data = data {
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSON
 
-                        completionHandler(.success(json))
-                    } catch {
-                        completionHandler(.failure(.JSONParsingError))
-                    }
-                }
-            } else {
-                completionHandler(.failure(.timeout))
+            guard let responseData = data else {
+                completionHanlder(.failure(.timeout))
+                return
             }
-        })
 
-        task.resume()
+            do {
+                let weatherResponse = try self.decoder.decode(HourWeatherResponse.self, from: responseData)
+                dlog(self, "--")
+                completionHanlder(.success(weatherResponse))
+            } catch {
+                dlog(self, "data not convert")
+                completionHanlder(.failure(.timeout))
+            }
+        }
+
+        dataTask.resume()
     }
 
     func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
@@ -145,7 +160,7 @@ class HomeServiceImpl: HomeService, APICallable {
                     guard let eventData = try? result.get() else {
                         completionHandler(.failure(.fetchEventsError))
                         return
-ı                    }
+                    }
                     eventS = eventData
                     group.leave()
                 }

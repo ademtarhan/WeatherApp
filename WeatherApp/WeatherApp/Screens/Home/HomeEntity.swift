@@ -127,6 +127,8 @@ struct WeatherResponse: Codable {
 }
 
 
+
+
 // MARK: - Clouds
 struct Clouds: Codable {
     let all: Int?
@@ -226,4 +228,136 @@ struct FeelsLike: Codable {
 struct Temp: Codable {
     let day, min, max, night: Double?
     let eve, morn: Double?
+}
+
+
+/*
+
+
+// MARK: Hourly
+
+struct HourWeatherResponse: Codable {
+    let list: [HourlyList]
+}
+
+// MARK: - List
+struct HourlyList: Codable {
+    let main: MainClass
+    let weather: [HourlyWeather]
+    let dtTxt: String
+
+    enum CodingKeys: String, CodingKey {
+        case main, weather
+        case dtTxt = "date_text"
+    }
+}
+
+
+// MARK: - MainClass
+struct MainClass: Codable {
+    let temp, feelsLike, tempMin, tempMax: Double
+    let pressure, seaLevel, grndLevel, humidity: Int
+    let tempKf: Double
+
+    enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
+        case humidity
+        case tempKf = "temp_kf"
+    }
+}
+
+
+// MARK: - Weather
+struct HourlyWeather: Codable {
+    let weatherDescription: Description
+    
+    enum CodingKeys: String, CodingKey {
+        case weatherDescription = "description"
+    }
+}
+
+enum Description: String, Codable {
+    case brokenClouds = "broken clouds"
+    case clearSky = "clear sky"
+    case fewClouds = "few clouds"
+    case lightRain = "light rain"
+    case overcastClouds = "overcast clouds"
+    case scatteredClouds = "scattered clouds"
+}
+
+*/
+
+
+// MARK: - HourWeatherResponse
+struct HourWeatherResponse: Codable {
+    let list: [HourlyList]?
+}
+
+// MARK: - List
+struct HourlyList: Codable {
+    let main: MainClass?
+    let weather: [HourlyWeather]?
+    let dtTxt: Date
+
+    enum CodingKeys: String, CodingKey {
+        case main, weather
+        case dtTxt = "dt_txt"
+    }
+}
+
+// MARK: - MainClass
+struct MainClass: Codable {
+    let temp, feelsLike, tempMin, tempMax: Double
+    let pressure, humidity: Int
+    let tempKf: Double
+
+    enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure
+        case humidity
+        case tempKf = "temp_kf"
+    }
+}
+
+
+// MARK: - Weather
+struct HourlyWeather: Codable {
+    let id: Int
+    let weatherDescription: String?
+    let icon: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case weatherDescription = "description"
+        case icon
+    }
+}
+
+/*
+enum Description: String, Codable {
+    case brokenClouds = "broken clouds"
+    case clearSky = "clear sky"
+    case fewClouds = "few clouds"
+    case lightSnow = "light snow"
+    case overcastClouds = "overcast clouds"
+    case scatteredClouds = "scattered clouds"
+}
+*/
+
+
+
+
+struct HourlyWeatherModel{
+    let hourText: String
+    let iconDescription: UIImage
+    let lowTempature: String
 }

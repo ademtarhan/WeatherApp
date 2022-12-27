@@ -56,19 +56,19 @@ func dlog(
     #if DEBUG
     var list : [Any] = []
     
-    var icon = "📗"
+    var iconImages = "📗"
     switch logType {
     case .Error:
-        icon = "📕"
+        iconImages = "📕"
     case .Warning:
-        icon = "📙"
+        iconImages = "📙"
     case .Success:
-        icon = "📗"
+        iconImages = "📗"
     case .Info:
-        icon = "📘"
+        iconImages = "📘"
     }
     
-    let logInfo = "\(currentDateString()) \(tag) \(icon) \(getFixedLengthStringType(cls))✅"
+    let logInfo = "\(currentDateString()) \(tag) \(iconImages) \(getFixedLengthStringType(cls))✅"
     list.append(logInfo)
     list.append(contentsOf: items)
     print(list, separator: " ", terminator: "\n")

@@ -23,11 +23,11 @@ class HomePresenterImpl: HomePresenter {
     var city = "Malatya"
     var eventArray = [EventModel]()
     var currentDay: Date?
-    init(){
+
+    init() {
         currentDay = Date()
     }
-    
-    
+
     func getCurrentWeather() {
         // TODO:
         interactor?.currentWeather(for: city, { result in
@@ -48,8 +48,8 @@ class HomePresenterImpl: HomePresenter {
             case .failure:
                 // TODO: Error message
                 break
-            case let .success(data): break
-                // TODO: ..
+            case let .success(data):
+                self.view?.hourlyWeatherDisplay(self.setHourlyWeather(with: data))
             }
         })
     }
@@ -69,9 +69,9 @@ class HomePresenterImpl: HomePresenter {
                 icon = UIImage(systemName: "rain.fill")!
             } else if "\(desctiptionIcon)" == "fog" {
                 icon = UIImage(systemName: "cloud.fog.fill")!
-            }else if "\(desctiptionIcon)" == "lightning" {
+            } else if "\(desctiptionIcon)" == "lightning" {
                 icon = UIImage(systemName: "cloud.bolt.rain.fill")!
-            }else {
+            } else {
                 icon = UIImage(systemName: "sun.min")!
             }
         }
@@ -108,39 +108,74 @@ class HomePresenterImpl: HomePresenter {
             humidityString = "%\(humidity)"
         }
 
-        let weatherModel = WeatherEntity.Current.ViewModel(location: location, temperature: temperatureString, feelsLike: feelsLikeString, minTemperature: lowTempString, maxTemperature: highTempString, wind: windString, humidity: humidityString,icon: icon)
+        let weatherModel = WeatherEntity.Current.ViewModel(location: location, temperature: temperatureString, feelsLike: feelsLikeString, minTemperature: lowTempString, maxTemperature: highTempString, wind: windString, humidity: humidityString, icon: icon)
 
         view?.display(weatherModel)
     }
-    
-    
+
+    func setHourlyWeather(with weatherList: HourWeatherResponse) -> [HourlyWeatherModel] {
+        var hourlyWeatherArray = [HourlyWeatherModel]()
+        var icon = UIImage(systemName: "sun.min.fill")!
+        var lowTempature = "No low high"
+        var hourText = "No date"
+
+        weatherList.list?.forEach({ list in
+            if let lowTemp = list.main?.tempMin {
+                lowTempature = "\(Int(lowTemp - 273))°"
+            }
+
+            hourText = "\(list.dtTxt.displayHour)"
+            
+            list.weather?.forEach({ weather in
+                if let desctiptionIcon = weather.weatherDescription {
+                    if "\(desctiptionIcon)" == "overcast clouds" {
+                        icon = UIImage(systemName: "cloud.fill")!
+                    } else if "\(desctiptionIcon)" == "broken clouds" {
+                        icon = UIImage(systemName: "cloud.sun.fill")!
+                    } else if "\(desctiptionIcon)" == "scattered clouds" {
+                        icon = UIImage(systemName: "cloud.fill")!
+                    } else if "\(desctiptionIcon)" == "rain" {
+                        icon = UIImage(systemName: "rain.fill")!
+                    } else if "\(desctiptionIcon)" == "fog" {
+                        icon = UIImage(systemName: "cloud.fog.fill")!
+                    } else if "\(desctiptionIcon)" == "lightning" {
+                        icon = UIImage(systemName: "cloud.bolt.rain.fill")!
+                    }else if "\(desctiptionIcon)" == "clear sky" {
+                        icon = UIImage(systemName: "cloud.bolt.rain.fill")!
+                    } else {
+                        icon = UIImage(systemName: "sun.min")!
+                    }
+                }
+
+                let hourWeather = HourlyWeatherModel(hourText: hourText, iconDescription: icon, lowTempature: lowTempature)
+                hourlyWeatherArray.append(hourWeather)
+            })
+        })
+
+        return hourlyWeatherArray
+    }
+
     func deleteEvent(with event: EventModel) {
         interactor?.deleteEvent(with: event, completionHandler: { result in
-            guard let _ = try? result.get() else{
+            guard let _ = try? result.get() else {
                 dlog(self, "didNotSuccessDeleteProcess")
-                //TODO: show error message
+                // TODO: show error message
                 return
             }
             dlog(self, "didSuccessDeleteProcess")
         })
     }
-    
-    
+
     func getData() {
         interactor?.getData(completionHandler: { result in
-            guard let eventsData = try? result.get() else{
-                //TODO: show fetch error
+            guard let eventsData = try? result.get() else {
+                // TODO: show fetch error
                 return
             }
             self.eventArray = eventsData as! [EventModel]
             let sortedArray = self.eventArray.sorted { $0.date < $1.date }
-            self.view?.setData(with: sortedArray )
-            
-            
-            
+            self.view?.setData(with: sortedArray)
+
         })
     }
-    
 }
-
-
