@@ -41,10 +41,9 @@ class AuthPresenterImpl: AuthPresenter{
         interactor?.createAccount(withEmail: email, password: password, { result in
             switch result{
             case .success:
-                print("presenter")
                 self.router?.navigateToHome()
-            case .failure:
-                break
+            case let .failure(error):
+                dlog(self, error)
             }
         })
     }

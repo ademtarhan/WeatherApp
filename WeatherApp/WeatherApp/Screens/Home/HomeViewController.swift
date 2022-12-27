@@ -51,23 +51,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         blueView.layer.opacity = 0.8
 
         presenter?.getWeather()
-
-        weatherWeekly.append(DailyWeatherModel(name: "Today", sunrise: "6º", sunset: 12, humidity: "13º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Friday", sunrise: "5º", sunset: 12, humidity: "13º", temp: 12, wind: 12, iconName: "cloud.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Saturday", sunrise: "7º", sunset: 12, humidity: "15º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Sunday", sunrise: "6º", sunset: 12, humidity: "15º", temp: 12, wind: 12, iconName: "sun.min.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Monday", sunrise: "7º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Tuesday", sunrise: "6º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.fill"))
-        weatherWeekly.append(DailyWeatherModel(name: "Wednesday", sunrise: "6º", sunset: 12, humidity: "14º", temp: 12, wind: 12, iconName: "cloud.sun.fill"))
-        /*
-         eventData.append(EventModel(date: "01.12.2022", title: "event1", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event2", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event3", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event4", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event5", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event6", description: "description1", eventID: "1"))
-         eventData.append(EventModel(date: "01.12.2022", title: "event7r", description: "description1", eventID: "1"))
-         */
         presenter?.getData()
         view.backgroundColor = UIColor(named: "background")
         presenter?.getWeather()
@@ -76,10 +59,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         tableView.dataSource = self
         let nibCell = UINib(nibName: "EventTableViewCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "eventCell")
-        // setUpView()
-        // setupLayout()
-
-        // gifView.loadGif(name: "weather3")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -100,8 +79,8 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         content.title = "Event For Tomorrow"
         content.body = "\(event.title)\n\(event.description)"
         var date = DateComponents()
-        date.hour = 14
-        date.minute = 50
+        date.hour = 15
+        date.minute = 10
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let uuid = UUID().uuidString

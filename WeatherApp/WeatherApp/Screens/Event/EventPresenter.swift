@@ -20,16 +20,13 @@ class EventPresenterImpl: EventPresenter {
     var interactor: EventInteractor?
     func saveEvent(date: String, title: String, description: String) {
         let dataModel = EventModel(date: date, title: title, description: description,eventID: "")
-        // ..MARK:
-        print(dataModel)
         interactor?.saveEvent(data: dataModel, completionHandler: { result in
             switch result{
             case .success:
-                print("save data")
                 //..TODO: navigate to home screen
                 self.router?.navigateToHome()
             case let .failure(error):
-                print(error)
+                dlog(self, error)
             }
         })
     }

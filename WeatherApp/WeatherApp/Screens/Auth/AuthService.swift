@@ -14,33 +14,24 @@ protocol AuthService: AnyObject {
 }
 
 class AuthServiceImpl: AuthService {
-    
-    
     func logIn(withEmail email: String, password: String, _ completionHandler: @escaping (Result<Any, AuthError>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error = error {
-                print("SigIn Error: \(error.localizedDescription)")
+                dlog(self, "SigIn Error: \(error.localizedDescription)")
                 completionHandler(.failure(self.getAuthError(errCode: error._code)))
             } else {
-                print("Log In Success")
                 completionHandler(.success(true))
             }
         }
     }
 
     func createAccount(withEmail email: String, password: String, _ completionHandler: @escaping (Result<Any, AuthError>) -> Void) {
-        
-        print("email- \(email)-password- \(password)")
-        
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
 
             if let error = error {
                 completionHandler(.failure(self.getAuthError(errCode: error._code)))
-                print(error)
+                dlog(self, "\(error)")
             } else {
-               // let user = LogInEntity.User(user: r?.user)
-                print("created user")
-                
                 completionHandler(.success(true))
             }
         }

@@ -18,7 +18,6 @@ class EventInteractorImpl: EventInteractor{
     
     func saveEvent(data: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
         let eventModel = EventModel(date: data.date, title: data.title, description: data.description, eventID: service?.eventID ?? "")
-        print(eventModel)
         service?.saveEvent(data: eventModel, completionHandler: { result in
             switch result{
             case let .success(event):

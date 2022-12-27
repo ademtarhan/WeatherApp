@@ -53,7 +53,6 @@ class EventViewControllerImpl: UIViewController, EventViewController, UITextFiel
         let components = Calendar.current.dateComponents([.year, .month, .day], from: sender.date)
         if let day = components.day, let month = components.month, let year = components.year {
             datePickerValue = "\(day) \(month) \(year)"
-            print("\(day) \(month) \(year)")
         }
     }
 }

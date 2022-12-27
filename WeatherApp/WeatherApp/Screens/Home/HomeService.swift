@@ -31,7 +31,7 @@ class HomeServiceImpl: HomeService, APICallable {
 
         let endpoint = "\(BaseURL)weather?q=\(city)&appid=\(APIKey)"
 
-        print("--- \(endpoint)")
+        dlog(self, "\(endpoint)")
         guard let safeURLString = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let endpointURL = URL(string: safeURLString) else {
             completionHanlder(.failure(.invalidURL))
@@ -88,7 +88,7 @@ class HomeServiceImpl: HomeService, APICallable {
 
         let endpoint = "\(BaseURL)forecast?lat=\(lat)&lon=\(lon)&appid=\(APIKey)"
 
-        print("--- \(endpoint)")
+        dlog(self, "\(endpoint)")
         guard let safeURLString = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let endpointURL = URL(string: safeURLString) else {
             completionHanlder(.failure(.invalidURL))
@@ -108,7 +108,6 @@ class HomeServiceImpl: HomeService, APICallable {
 
             do {
                 let weatherResponse = try self.decoder.decode(HourWeatherResponse.self, from: responseData)
-                dlog(self, "--")
                 completionHanlder(.success(weatherResponse))
             } catch {
                 dlog(self, "data not convert")
@@ -121,7 +120,6 @@ class HomeServiceImpl: HomeService, APICallable {
 
     func deleteEvent(with event: EventModel, completionHandler: @escaping (Result<Any, FirebaseError>) -> Void) {
         let currenUserID = Auth.auth().currentUser?.uid
-        dlog(self, "\(currenUserID)")
         dlog(self, "willDelete")
         firebaseREF.child("events").child(event.eventID).removeValue { error, _ in
             if error != nil {
@@ -146,7 +144,7 @@ class HomeServiceImpl: HomeService, APICallable {
 
     func getData(completionHandler: @escaping (Result<[EventModel], FirebaseError>) -> Void) {
         dlog(self, "willGetData")
-        var group = DispatchGroup()
+        let group = DispatchGroup()
         var eventS = [EventModel]()
         fetchEventsFromUsers { result in
             guard let events = try? result.get() else {
@@ -165,9 +163,7 @@ class HomeServiceImpl: HomeService, APICallable {
                     group.leave()
                 }
             }
-            group.notify(queue: .global(qos: .background)) {
-                dlog(self, "\(eventS.count)")
-                completionHandler(.success(eventS))
+            group.notify(queue: .global(qos: .background)) {                completionHandler(.success(eventS))
             }
         }
     }

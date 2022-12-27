@@ -33,11 +33,9 @@ class HomePresenterImpl: HomePresenter {
         interactor?.currentWeather(for: city, { result in
             switch result {
             case let .success(data):
-                print(data)
-
                 self.updateCurrent(data)
-            case .failure:
-                break
+            case let .failure(error):
+                dlog(self, "\(error)")
             }
         })
     }
